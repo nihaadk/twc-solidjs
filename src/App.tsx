@@ -3,7 +3,10 @@ import AppRoutes from "./router";
 
 const App: Component = () => {
   return (
+    <>
+    <div id="popups"/>
     <AppRoutes/>
+    </>
   );
 };
 
