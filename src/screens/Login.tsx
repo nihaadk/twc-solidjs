@@ -1,9 +1,7 @@
 import { A } from "@solidjs/router";
 import { Component } from "solid-js";
-import pageSize from "../reactive/pageSize";
 
 const LoginScreen: Component = () => {
-  
   return (
     <div class="flex-it justify-center items-center h-full">
       <div class="text-white text-4xl font-bold">Get In</div>

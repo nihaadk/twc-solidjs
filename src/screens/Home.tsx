@@ -1,14 +1,14 @@
-import { Component, For, createSignal, createUniqueId, onCleanup, onMount } from "solid-js";
+import { Component, For, createSignal, createUniqueId } from "solid-js";
 import { FaRegularImage } from "solid-icons/fa";
 import MainLayout from "../components/layouts/Main";
 import Post from "../components/posts/Post";
 import { IPost } from "../interfaces/post.interface";
-import pageSize from "../reactive/pageSize";
+
 
 const HomeScreen: Component = () => {
   const [content, setContent] = createSignal("");
   const [posts, setPosts] = createSignal<IPost[]>([]);
-  
+
   const createPost = () => {
     const newPost = {
       id: createUniqueId(),

@@ -18,7 +18,7 @@ export const links = [
     },
     {
         name: 'More',
-        href: '/more',
+        href: '/login',
         icon: () =>  <CgMoreO size={SIZE} />
     },
     {
