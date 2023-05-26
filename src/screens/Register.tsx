@@ -1,10 +1,7 @@
 import { A } from "@solidjs/router";
 import { Component, createSignal } from "solid-js";
+import { IInputEvent } from "../interfaces/input-event.interface";
 
-type ControlInput = InputEvent & {
-  currentTarget: HTMLInputElement;
-  target: Element;
-};
 
 const RegisterScreen: Component = () => {
   const [form, setForm] = createSignal({
@@ -16,14 +13,18 @@ const RegisterScreen: Component = () => {
     passwordConfirmation: "",
   });
 
-  const inputHandler = (inputEvent: ControlInput, controlName: string) => {
+  const handelInput = (inputEvent: IInputEvent) => {
+    const { name, value } = inputEvent.currentTarget;
     setForm({
       ...form(),
-      [controlName]: inputEvent?.currentTarget?.value,
+      [name]: value,
     });
+  };
+
+  const submitForm = () => {
     console.log(form());
     
-  };
+  }
 
   return (
     <div class="flex-it justify-center items-center h-full">
@@ -39,7 +40,7 @@ const RegisterScreen: Component = () => {
                       Full Name
                     </label>
                     <input
-                      onInput={(e) => inputHandler(e, "fullName")}
+                      onInput={handelInput}
                       type="text"
                       name="fullName"
                       id="fullName"
@@ -55,7 +56,7 @@ const RegisterScreen: Component = () => {
                       Nick Name
                     </label>
                     <input
-                      onInput={(e) => inputHandler(e, "nickName")}
+                      onInput={handelInput}
                       type="text"
                       name="nickName"
                       id="nickName"
@@ -68,7 +69,7 @@ const RegisterScreen: Component = () => {
                       Email
                     </label>
                     <input
-                      onInput={(e) => inputHandler(e, "email")}
+                      onInput={handelInput}
                       type="text"
                       name="email"
                       id="email"
@@ -81,7 +82,7 @@ const RegisterScreen: Component = () => {
                       Avatar
                     </label>
                     <input
-                      onInput={(e) => inputHandler(e, "avatar")}
+                      onInput={handelInput}
                       type="text"
                       name="avatar"
                       id="avatar"
@@ -94,7 +95,7 @@ const RegisterScreen: Component = () => {
                       Password
                     </label>
                     <input
-                      onInput={(e) => inputHandler(e, "password")}
+                      onInput={handelInput}
                       type="password"
                       name="password"
                       id="password"
@@ -107,7 +108,7 @@ const RegisterScreen: Component = () => {
                       Password Confirmation
                     </label>
                     <input
-                      onInput={(e) => inputHandler(e, "passwordConfirmation")}
+                      onInput={handelInput}
                       type="password"
                       name="passwordConfirmation"
                       id="passwordConfirmation"
@@ -124,6 +125,7 @@ const RegisterScreen: Component = () => {
               </div>
               <div class="flex-it py-2">
                 <button
+                onClick={submitForm}
                   type="button"
                   class="
                   bg-blue-400 hover:bg-blue-500 focus:ring-0
