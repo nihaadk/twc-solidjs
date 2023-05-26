@@ -27,7 +27,7 @@ const AuthProvider: ParentComponent = (props) => {
   onMount(async () => {
     try {
       await authenticatedUser();
-      setStore("isAuthenticated", true);
+      setStore("isAuthenticated", false);
     } catch (error) {
       console.log("Error !!!!");
       setStore("isAuthenticated", false);

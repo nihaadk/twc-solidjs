@@ -1,10 +1,12 @@
 import { A } from "@solidjs/router";
-import { Component, createSignal } from "solid-js";
+import { Component } from "solid-js";
 import { IInputEvent } from "../interfaces/input-event.interface";
+import { createStore } from "solid-js/store";
+import { IRegisterForm } from "../interfaces/register-form.interface";
 
 
 const RegisterScreen: Component = () => {
-  const [form, setForm] = createSignal({
+  const [form, setForm] = createStore<IRegisterForm>({
     fullName: "",
     nickName: "",
     email: "",
@@ -15,14 +17,11 @@ const RegisterScreen: Component = () => {
 
   const handelInput = (inputEvent: IInputEvent) => {
     const { name, value } = inputEvent.currentTarget;
-    setForm({
-      ...form(),
-      [name]: value,
-    });
+    setForm(name as keyof IRegisterForm, value);
   };
 
   const submitForm = () => {
-    console.log(form());
+    console.log(form);
     
   }
 
