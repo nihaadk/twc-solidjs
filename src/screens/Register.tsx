@@ -1,7 +1,30 @@
 import { A } from "@solidjs/router";
-import { Component } from "solid-js";
+import { Component, createSignal } from "solid-js";
+
+type ControlInput = InputEvent & {
+  currentTarget: HTMLInputElement;
+  target: Element;
+};
 
 const RegisterScreen: Component = () => {
+  const [form, setForm] = createSignal({
+    fullName: "",
+    nickName: "",
+    email: "",
+    avatar: "",
+    password: "",
+    passwordConfirmation: "",
+  });
+
+  const inputHandler = (inputEvent: ControlInput, controlName: string) => {
+    setForm({
+      ...form(),
+      [controlName]: inputEvent?.currentTarget?.value,
+    });
+    console.log(form());
+    
+  };
+
   return (
     <div class="flex-it justify-center items-center h-full">
       <div class="text-white text-4xl font-bold">Create Account</div>
@@ -16,6 +39,7 @@ const RegisterScreen: Component = () => {
                       Full Name
                     </label>
                     <input
+                      onInput={(e) => inputHandler(e, "fullName")}
                       type="text"
                       name="fullName"
                       id="fullName"
@@ -31,6 +55,7 @@ const RegisterScreen: Component = () => {
                       Nick Name
                     </label>
                     <input
+                      onInput={(e) => inputHandler(e, "nickName")}
                       type="text"
                       name="nickName"
                       id="nickName"
@@ -43,6 +68,7 @@ const RegisterScreen: Component = () => {
                       Email
                     </label>
                     <input
+                      onInput={(e) => inputHandler(e, "email")}
                       type="text"
                       name="email"
                       id="email"
@@ -55,6 +81,7 @@ const RegisterScreen: Component = () => {
                       Avatar
                     </label>
                     <input
+                      onInput={(e) => inputHandler(e, "avatar")}
                       type="text"
                       name="avatar"
                       id="avatar"
@@ -67,6 +94,7 @@ const RegisterScreen: Component = () => {
                       Password
                     </label>
                     <input
+                      onInput={(e) => inputHandler(e, "password")}
                       type="password"
                       name="password"
                       id="password"
@@ -79,6 +107,7 @@ const RegisterScreen: Component = () => {
                       Password Confirmation
                     </label>
                     <input
+                      onInput={(e) => inputHandler(e, "passwordConfirmation")}
                       type="password"
                       name="passwordConfirmation"
                       id="passwordConfirmation"
