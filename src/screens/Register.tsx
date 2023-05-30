@@ -1,12 +1,10 @@
 import { A } from "@solidjs/router";
 import { Component } from "solid-js";
-import { IInputEvent } from "../interfaces/input-event.interface";
-import { createStore } from "solid-js/store";
-import { IRegisterForm } from "../interfaces/register-form.interface";
-
+import useForm from "../hooks/useForm";
+import { RegisterForm } from "../interfaces/form.types";
 
 const RegisterScreen: Component = () => {
-  const [form, setForm] = createStore<IRegisterForm>({
+  const { handelInput, submitForm } = useForm<RegisterForm>({
     fullName: "",
     nickName: "",
     email: "",
@@ -15,15 +13,10 @@ const RegisterScreen: Component = () => {
     passwordConfirmation: "",
   });
 
-  const handelInput = (inputEvent: IInputEvent) => {
-    const { name, value } = inputEvent.currentTarget;
-    setForm(name as keyof IRegisterForm, value);
-  };
-
-  const submitForm = () => {
+  const onFormSubmit = (form: RegisterForm) => {
     console.log(form);
     
-  }
+  };
 
   return (
     <div class="flex-it justify-center items-center h-full">
@@ -124,7 +117,7 @@ const RegisterScreen: Component = () => {
               </div>
               <div class="flex-it py-2">
                 <button
-                onClick={submitForm}
+                  onClick={submitForm(onFormSubmit)}
                   type="button"
                   class="
                   bg-blue-400 hover:bg-blue-500 focus:ring-0
