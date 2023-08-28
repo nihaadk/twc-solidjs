@@ -1,10 +1,10 @@
 import { A } from "@solidjs/router";
-import { Component } from "solid-js";
-import useForm from "../hooks/useForm";
+import { Accessor, Component } from "solid-js";
+import useForm, { firstUppercaseLetter, maxLengthValidator } from "../hooks/useForm";
 import { RegisterForm } from "../interfaces/form.types";
 
 const RegisterScreen: Component = () => {
-  const { handelInput, submitForm } = useForm<RegisterForm>({
+  const { handelInput, submitForm, validate } = useForm<RegisterForm>({
     fullName: "",
     nickName: "",
     email: "",
@@ -17,6 +17,7 @@ const RegisterScreen: Component = () => {
     console.log(form);
     
   };
+
 
   return (
     <div class="flex-it justify-center items-center h-full">
@@ -33,6 +34,7 @@ const RegisterScreen: Component = () => {
                     </label>
                     <input
                       onInput={handelInput}
+                      use:validate={[maxLengthValidator, firstUppercaseLetter]}
                       type="text"
                       name="fullName"
                       id="fullName"
@@ -49,6 +51,7 @@ const RegisterScreen: Component = () => {
                     </label>
                     <input
                       onInput={handelInput}
+                      use:validate={[maxLengthValidator]}
                       type="text"
                       name="nickName"
                       id="nickName"
