@@ -26,7 +26,7 @@ const HomeScreen: Component = () => {
       data: new Date(),
     };
 
-    setPosts(produce(posts => posts.items.push(newPost)));
+    setPosts(produce(posts => posts.items.unshift(newPost)));
     setContent("");
   };
 
