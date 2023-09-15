@@ -1,10 +1,14 @@
 import { A } from "@solidjs/router";
-import { Accessor, Component } from "solid-js";
-import useForm, { firstUppercaseLetter, maxLengthValidator } from "../hooks/useForm";
+import { Component, Show } from "solid-js";
+import useForm, {
+  firstUppercaseLetter,
+  maxLengthValidator,
+} from "../hooks/useForm";
 import { RegisterForm } from "../interfaces/form.types";
+import { ErrorMessage } from "../hooks/errorMessage";
 
 const RegisterScreen: Component = () => {
-  const { handelInput, submitForm, validate } = useForm<RegisterForm>({
+  const { handelInput, submitForm, validate, errors } = useForm<RegisterForm>({
     fullName: "",
     nickName: "",
     email: "",
@@ -15,9 +19,7 @@ const RegisterScreen: Component = () => {
 
   const onFormSubmit = (form: RegisterForm) => {
     console.log(form);
-    
   };
-
 
   return (
     <div class="flex-it justify-center items-center h-full">
@@ -40,9 +42,7 @@ const RegisterScreen: Component = () => {
                       id="fullName"
                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
-                    <div class="flex-it grow text-xs bg-red-400 text-white p-3 pl-3 mt-1 rounded-md">
-                      Error Error Beep Beep!
-                    </div>
+                    <ErrorMessage>{errors["fullName"]}</ErrorMessage>
                   </div>
 
                   <div class="flex-it py-2">
@@ -57,6 +57,7 @@ const RegisterScreen: Component = () => {
                       id="nickName"
                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
+                    <ErrorMessage>{errors["nickName"]}</ErrorMessage>
                   </div>
 
                   <div class="flex-it py-2">

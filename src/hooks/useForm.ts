@@ -71,7 +71,8 @@ const useForm = <T extends Form>(initialForm: T) => {
   return {
     handelInput,
     submitForm,
-    validate
+    validate,
+    errors
   };
 };
 
