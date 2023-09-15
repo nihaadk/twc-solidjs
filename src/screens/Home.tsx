@@ -3,11 +3,14 @@ import { FaRegularImage } from "solid-icons/fa";
 import MainLayout from "../components/layouts/Main";
 import Post from "../components/posts/Post";
 import { IPost } from "../interfaces/post.interface";
+import { createStore, produce } from "solid-js/store";
 
 
 const HomeScreen: Component = () => {
   const [content, setContent] = createSignal("");
-  const [posts, setPosts] = createSignal<IPost[]>([]);
+  const [posts, setPosts] = createStore({
+    items: [] as IPost[]
+  });
 
   const createPost = () => {
     const newPost = {
@@ -23,7 +26,7 @@ const HomeScreen: Component = () => {
       data: new Date(),
     };
 
-    setPosts([...posts(), newPost]);
+    setPosts(produce(posts => posts.items.push(newPost)));
     setContent("");
   };
 
@@ -79,7 +82,7 @@ const HomeScreen: Component = () => {
       </div>
       <div class="h-px bg-gray-700 my-1" />
       {/* GLIDE POST START */}
-      <For each={posts()}>
+      <For each={posts.items}>
         {(post) => <Post post={post} />}
       </For>
 
