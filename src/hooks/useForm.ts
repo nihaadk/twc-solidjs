@@ -1,6 +1,7 @@
-import { createStore } from "solid-js/store";
+import { createStore, produce } from "solid-js/store";
 import {
   Form,
+  FormErrors,
   IInputEvent,
   SubmitCallback,
 } from "../interfaces/form.types";
@@ -36,7 +37,7 @@ export const firstUppercaseLetter = (element: HTMLInputElement) => {
 
 const useForm = <T extends Form>(initialForm: T) => {
   const [form, setForm] = createStore(initialForm);
-  const [errors, setError] = createStore<Form>();
+  const [errors, setError] = createStore<FormErrors>();
 
   const handelInput = (inputEvent: IInputEvent) => {
     const { name, value } = inputEvent.currentTarget;
@@ -44,7 +45,7 @@ const useForm = <T extends Form>(initialForm: T) => {
   };
 
   const submitForm = (submitCallback: SubmitCallback<T>) => () => {
-    submitCallback(form);
+  submitCallback(form);
   };
 
   const validate = (ref: HTMLInputElement, accessor: Accessor<Validator[]>) => {
@@ -53,14 +54,14 @@ const useForm = <T extends Form>(initialForm: T) => {
   };
 
 
-  const checkValidity = (ref: HTMLInputElement, validators: Validator[]) => () => {
+  const checkValidity = (element: HTMLInputElement, validators: Validator[]) => () => {
+    setError(element.name, []);
+
     for (const validator of validators) {
-      const message = validator(ref);
+      const message = validator(element);
     
       if(!!message) {
-        setError(ref.name, message);
-      } else {
-        setError(ref.name, EMPTY_STRING);
+        setError(produce(errors => errors[element.name].push(message)));
       }
     }
     console.log(JSON.stringify(errors));
