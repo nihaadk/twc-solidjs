@@ -3,6 +3,7 @@ import { Component, Show } from "solid-js";
 import useForm, {
   firstUppercaseLetter,
   maxLengthValidator,
+  requiredValidator,
 } from "../hooks/useForm";
 import { RegisterForm } from "../interfaces/form.types";
 import { ErrorMessage } from "../hooks/errorMessage";
@@ -36,7 +37,7 @@ const RegisterScreen: Component = () => {
                     </label>
                     <input
                       onInput={handelInput}
-                      use:validate={[maxLengthValidator, firstUppercaseLetter]}
+                      use:validate={[requiredValidator,maxLengthValidator, firstUppercaseLetter]}
                       type="text"
                       name="fullName"
                       id="fullName"
@@ -51,7 +52,7 @@ const RegisterScreen: Component = () => {
                     </label>
                     <input
                       onInput={handelInput}
-                      use:validate={[maxLengthValidator]}
+                      use:validate={[requiredValidator,maxLengthValidator, firstUppercaseLetter]}
                       type="text"
                       name="nickName"
                       id="nickName"
@@ -66,11 +67,13 @@ const RegisterScreen: Component = () => {
                     </label>
                     <input
                       onInput={handelInput}
+                      use:validate={[requiredValidator]}
                       type="text"
                       name="email"
                       id="email"
                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
+                    <ErrorMessage>{errors["email"]}</ErrorMessage>
                   </div>
 
                   <div class="flex-it py-2">
@@ -79,11 +82,13 @@ const RegisterScreen: Component = () => {
                     </label>
                     <input
                       onInput={handelInput}
+                      use:validate={[requiredValidator]}
                       type="text"
                       name="avatar"
                       id="avatar"
                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
+                    <ErrorMessage>{errors["avatar"]}</ErrorMessage>
                   </div>
 
                   <div class="flex-it py-2">
@@ -92,11 +97,13 @@ const RegisterScreen: Component = () => {
                     </label>
                     <input
                       onInput={handelInput}
+                      use:validate={[requiredValidator]}
                       type="password"
                       name="password"
                       id="password"
                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
+                    <ErrorMessage>{errors["password"]}</ErrorMessage>
                   </div>
 
                   <div class="flex-it py-2">
@@ -105,12 +112,14 @@ const RegisterScreen: Component = () => {
                     </label>
                     <input
                       onInput={handelInput}
+                      use:validate={[requiredValidator]}
                       type="password"
                       name="passwordConfirmation"
                       id="passwordConfirmation"
                       class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
                   </div>
+                  <ErrorMessage>{errors["passwordConfirmation"]}</ErrorMessage>
                 </div>
               </div>
               <div class="text-sm text-gray-600 pb-4">
